@@ -10,6 +10,10 @@ Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
 
 3. The theme is "Hot and Cold" and the chosen restriction is to use one button only (alternatives would be "no text" and "multiple endings"). 
  
+## 3rd party assets 
+
+https://kenney.nl/assets/abstract-platformer, Creative Commons CC0
+
 ## Devlog
 
 ### Friday 7pm 
@@ -21,5 +25,5 @@ Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
 
 ### Friday 11pm
 
-- reading code, setting up the project. I don't have a lot experience with Flame. First tasks will be get the assets into the engine and get the basic logic running
+- reading code, setting up the project. First tasks will be to get the assets into the engine and kick off some basic logic (running). The key mechanism should be cold (blue) and hot (red) tiles and the player has to switch to ho or cold in order to survive. The parcours should be procedurally generated (no preconprepared map). 
 
