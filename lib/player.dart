@@ -6,13 +6,17 @@ import 'package:flame/components.dart';
 
 import 'game.dart';
 
-enum PlayerState { idle, running, jumping, switching, dead }
+enum PlayerState { idle, running, jumping, dead }
 
 enum PlayerTemperature { hot, cold }
 
 class Player extends SpriteAnimationGroupComponent<PlayerState>
     with HasGameReference<HotAndColdGame>, CollisionCallbacks {
   late PlayerTemperature playerTemperature;
+
+  final double gravity = 1;
+  final double initialJumpVelocity = -15.0;
+  double _jumpVelocity = 0.0;
 
   @override
   bool get debugMode => true;
@@ -35,17 +39,44 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     x = size.x / 2;
   }
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (current == PlayerState.jumping) {
+      y += _jumpVelocity;
+      _jumpVelocity += gravity;
+      if (y > groundY) {
+        land();
+      }
+    } else {
+      y = groundY;
+    }
+  }
+
   void start() {
     current = PlayerState.running;
   }
 
+  double get groundY {
+    return (game.size.y / 2) - height / 2;
+  }
+
   void jump(double speed) {
+    if (current == PlayerState.jumping) {
+      return;
+    }
     current = PlayerState.jumping;
+    _jumpVelocity = initialJumpVelocity - (speed / 500);
     print("jump");
   }
 
+  void land() {
+    y = groundY;
+    _jumpVelocity = 0.0;
+    current = PlayerState.running;
+  }
+
   void switchTemperature(double speed) {
-    current = PlayerState.switching;
     playerTemperature = switch (playerTemperature) {
       PlayerTemperature.hot => PlayerTemperature.cold,
       PlayerTemperature.cold => PlayerTemperature.hot,
@@ -62,11 +93,11 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
       ),
       PlayerState.running: _getAnimation(
         framesHot: [
-          //  (Vector2(39.0, 48.0), Vector2(850.0, 47.0)),
-          // (Vector2(39.0, 45.0), Vector2(850.0, 96.0)),
-          // (Vector2(39.0, 45.0), Vector2(849.0, 251.0)),
+          (Vector2(39.0, 48.0), Vector2(850.0, 47.0)),
+          (Vector2(39.0, 45.0), Vector2(850.0, 96.0)),
+          (Vector2(39.0, 45.0), Vector2(849.0, 251.0)),
           (Vector2(49.0, 42.0), Vector2(710.0, 384.0)),
-          // (Vector2(64.0, 38.0), Vector2(130.0, 975.0))
+          (Vector2(64.0, 38.0), Vector2(130.0, 975.0))
         ],
         framesCold: [
           (Vector2(45.0, 54.0), Vector2(759.0, 812.0)),

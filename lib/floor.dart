@@ -12,6 +12,7 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
 
   static final Vector2 tileSize = Vector2(64, 64);
   final Queue<SpriteComponent> floorTiles = Queue();
+  List<SpriteComponent> floor = [];
 
   late final _coldSprite = Sprite(
     game.spriteImage,
@@ -29,8 +30,9 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
     final tilesX = size.x ~/ tileSize.x + 1;
-    final floor = _generateFloor(tilesX);
-    y = (size.y / 2);
+    floor = _generateFloor(tilesX);
+    print((size.y) / 2);
+    y = ((size.y + tileSize.y) / 2);
     addAll(floor);
     floorTiles.addAll(floor);
   }
@@ -45,13 +47,14 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
 
     final firstTile = floorTiles.first;
     if (firstTile.x <= -firstTile.width) {
-      print("new tile needed");
-      var newTile = SpriteComponent(
-        sprite: Random().nextBool() ? _hotSprite : _coldSprite,
-        size: tileSize,
-      )..x = floorTiles.last.x + floorTiles.last.width;
+      // TODO does not work
+      // var newTile = new SpriteComponent(
+      //   sprite: Random().nextBool() ? _hotSprite : _coldSprite,
+      //   size: tileSize,
+      // );
+      firstTile.x = floorTiles.last.x + floorTiles.last.width;
       floorTiles.remove(firstTile);
-      floorTiles.add(newTile);
+      floorTiles.add(firstTile);
     }
   }
 
