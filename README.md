@@ -27,3 +27,8 @@ https://kenney.nl/assets/abstract-platformer, Creative Commons CC0
 
 - reading code, setting up the project. First tasks will be to get the assets into the engine and kick off some basic logic (running). The key mechanism should be cold (blue) and hot (red) tiles and the player has to switch to ho or cold in order to survive. The parcours should be procedurally generated (no preconprepared map). 
 
+### Saturday 8am
+
+- sprites on the screen
+
+### Saturday 4pm
