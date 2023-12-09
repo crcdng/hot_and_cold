@@ -12,7 +12,7 @@ enum GameState { intro, playing, gameOver }
 
 class HotAndColdGame extends FlameGame
     with TapCallbacks, DoubleTapCallbacks, HasCollisionDetection {
-  final double startSpeed = 600;
+  final double startSpeed = 10;
   GameState state = GameState.intro;
   double speed = 0.0;
 

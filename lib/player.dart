@@ -14,6 +14,9 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     with HasGameReference<HotAndColdGame>, CollisionCallbacks {
   late PlayerTemperature playerTemperature;
 
+  @override
+  bool get debugMode => true;
+
   Player() : super(size: Vector2(39, 48)) {
     playerTemperature =
         Random().nextBool() ? PlayerTemperature.hot : PlayerTemperature.cold;

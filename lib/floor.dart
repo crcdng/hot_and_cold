@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flame/components.dart';
@@ -6,7 +7,11 @@ import 'game.dart';
 class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
   Floor() : super();
 
+  @override
+  bool get debugMode => true;
+
   static final Vector2 tileSize = Vector2(64, 64);
+  final Queue<SpriteComponent> floorTiles = Queue();
 
   late final _coldSprite = Sprite(
     game.spriteImage,
@@ -27,11 +32,27 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
     final floor = _generateFloor(tilesX);
     y = (size.y / 2);
     addAll(floor);
+    floorTiles.addAll(floor);
   }
 
   @override
   void update(double dt) {
     super.update(dt);
+    final increment = game.speed * dt;
+    for (final tile in floorTiles) {
+      tile.x -= increment;
+    }
+
+    final firstTile = floorTiles.first;
+    if (firstTile.x <= -firstTile.width) {
+      print("new tile needed");
+      var newTile = SpriteComponent(
+        sprite: Random().nextBool() ? _hotSprite : _coldSprite,
+        size: tileSize,
+      )..x = floorTiles.last.x + floorTiles.last.width;
+      floorTiles.remove(firstTile);
+      floorTiles.add(newTile);
+    }
   }
 
   List<SpriteComponent> _generateFloor(int tilesX) {

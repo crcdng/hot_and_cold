@@ -29,6 +29,6 @@ https://kenney.nl/assets/abstract-platformer, Creative Commons CC0
 
 ### Saturday 8am
 
-- sprites on the screen
+- first sprites on the screen
 
 ### Saturday 4pm
