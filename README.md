@@ -61,3 +61,11 @@ audio https://kenney.nl/assets/digital-audio, Creative Commons CC0
 ### Sunday 8.30pm 
 
 - test upload
+
+### Sunday 9.40pm 
+
+- attempt hotfix floor
+
+### Sunday 10.00pm 
+
+- deadline
