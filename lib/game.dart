@@ -5,6 +5,7 @@ import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 
+import 'button.dart';
 import 'floor.dart';
 import 'player.dart';
 import 'score.dart';
@@ -14,6 +15,7 @@ enum GameState { intro, playing, gameOver }
 class HotAndColdGame extends FlameGame
     with TapCallbacks, DoubleTapCallbacks, HasCollisionDetection {
   final double startSpeed = 130;
+  final double maxSpeed = 390;
   double speed = 0.0;
   double _distance = 0.0;
   int score = 0;
@@ -22,6 +24,9 @@ class HotAndColdGame extends FlameGame
   final floor = Floor();
   final player = Player();
   final scoreDisplay = ScoreDisplay();
+  final button = Button();
+
+  final menuOverlayIdentifier = 'Menu';
 
   late final Image spriteSheet;
 
@@ -29,12 +34,15 @@ class HotAndColdGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    super.onLoad();
     spriteSheet = await Flame.images.load('spritesheet_complete.png');
 
     add(floor);
     add(player);
     add(scoreDisplay);
+    add(button);
+    overlays.add(menuOverlayIdentifier);
+
+    return super.onLoad();
   }
 
   @override
@@ -59,9 +67,15 @@ class HotAndColdGame extends FlameGame
   @override
   void update(double dt) {
     super.update(dt);
+    if (state != GameState.playing) {
+      return;
+    }
     _distance += dt * speed;
     score = _distance ~/ 10;
     scoreDisplay.score = score;
+    if (speed < maxSpeed) {
+      speed += 0.01;
+    }
   }
 
   void start() {
@@ -69,6 +83,7 @@ class HotAndColdGame extends FlameGame
     speed = startSpeed;
     score = 0;
     scoreDisplay.score = score;
+    overlays.remove(menuOverlayIdentifier);
   }
 
   void gameOver() {
@@ -77,7 +92,7 @@ class HotAndColdGame extends FlameGame
       highScore = score;
       scoreDisplay.highScore = highScore;
     }
-    // gameOverPanel.visible = true;
+    overlays.add(menuOverlayIdentifier);
     player.current = PlayerState.dead;
     speed = 0.0;
   }

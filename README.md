@@ -12,7 +12,9 @@ Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
  
 ## 3rd party assets 
 
-https://kenney.nl/assets/abstract-platformer, Creative Commons CC0
+art https://kenney.nl/assets/abstract-platformer, Creative Commons CC0    
+fonts https://kenney.nl/assets/kenney-fonts, Creative Commons CC0    
+audio https://kenney.nl/assets/digital-audio, Creative Commons CC0    
 
 ## Devlog
 
@@ -39,3 +41,11 @@ https://kenney.nl/assets/abstract-platformer, Creative Commons CC0
 
 - collision detection logic
 - core game loop
+
+### Sunday 3pm 
+
+- score
+
+### Sunday 5pm 
+
+- menu and fonts

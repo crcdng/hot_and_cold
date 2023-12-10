@@ -12,25 +12,28 @@ class ScoreDisplay extends TextComponent with HasGameReference<HotAndColdGame> {
   int get score => _score;
   set score(int newScore) {
     _score = newScore;
-    text = 'SCORE ${scoreString(_score)} HIGHSCORE ${scoreString(_highScore)}';
+    text = '${scoreString(_score)} \nHI ${scoreString(_highScore)}';
   }
 
   set highScore(int newScore) {
     _highScore = newScore;
-    text = 'SCORE ${scoreString(_score)} HIGHSCORE ${scoreString(_highScore)}';
+    text =
+        'SCORE ${scoreString(_score)} \nHIGHSCORE ${scoreString(_highScore)}';
   }
 
-  String scoreString(int score) => score.toString().padLeft(5, '0');
+  String scoreString(int score) => score.toString().padLeft(8, '0');
 
   @override
   Future<void> onLoad() async {
     textRenderer = TextPaint(
       style: const TextStyle(
-        fontSize: 32,
-        color: Color.fromRGBO(100, 10, 10, 1),
+        fontFamily: 'Kenney-Blocks',
+        fontSize: 28,
+        color: Color.fromRGBO(140, 140, 140, 1),
       ),
     );
-    position = Vector2(20, 320);
+    position = Vector2(20, 20);
     score = 0;
+    return super.onLoad();
   }
 }

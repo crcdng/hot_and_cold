@@ -29,10 +29,10 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
 
   @override
   FutureOr<void> onLoad() {
-    super.onLoad();
     add(RectangleHitbox()..renderShape = false);
     animations = _getAnimations;
     current = PlayerState.idle;
+    return super.onLoad();
   }
 
   @override
