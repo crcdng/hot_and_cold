@@ -1,5 +1,7 @@
 # hot_and_cold
 
+https://crcdng.itch.io/hot-and-cold 
+
 Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
 
 ## Limitations
@@ -8,7 +10,7 @@ Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
 
 2. The game jam runs for a weekend, all work has to be done in that timeframe.
 
-3. The theme is "Hot and Cold" and the chosen restriction is to use one button only (alternatives would be "no text" and "multiple endings"). 
+3. The theme is "Hot & Cold" and the chosen restriction is to use a single button for input (alternatives would be "no text" and "multiple endings"). 
  
 ## 3rd party assets 
 
@@ -20,7 +22,8 @@ audio https://kenney.nl/assets/digital-audio, Creative Commons CC0
 ## Devlog
 
 ### Friday 7pm 
-- the theme and restrictions are revealed 
+
+- theme and limitations are revealed 
 
 - grappling with a few ideas, doing research, theme / restriction point to endless runner (https://flappybird.io/, https://canabalt.com/). There are endless runner tutorials, templates and examples available (https://github.com/flame-engine/flame/tree/main/examples/games/trex, https://play.google.com/store/apps/details?id=xyz.fireslime.gravitational_waves, https://github.com/flutter/games/tree/main/templates/endless_runner, https://medium.com/flutter/how-we-built-the-new-super-dash-demo-in-flutter-and-flame-in-just-six-weeks-9c7aa2a5ad31)
 
@@ -54,3 +57,7 @@ audio https://kenney.nl/assets/digital-audio, Creative Commons CC0
 ### Sunday 6.30pm 
 
 - audio
+
+### Sunday 8.30pm 
+
+- test upload

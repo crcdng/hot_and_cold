@@ -54,6 +54,7 @@ class HotAndColdGame extends FlameGame
 
   @override
   void onTapDown(TapDownEvent event) {
+    print("tap");
     super.onTapDown(event);
     if (state == GameState.intro || state == GameState.gameOver) {
       start();
@@ -95,12 +96,15 @@ class HotAndColdGame extends FlameGame
     score = 0;
     scoreDisplay.score = score;
     player.start();
-    floor = Floor();
+    floor.reset();
     state = GameState.playing;
   }
 
   void gameOver() {
     print("gameover");
+    if (state == GameState.gameOver) {
+      return;
+    }
     state = GameState.gameOver;
     player.current = PlayerState.dead;
     speed = 0.0;

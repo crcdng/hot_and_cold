@@ -5,13 +5,14 @@ import 'package:hot_and_cold/game.dart';
 import 'menu.dart';
 
 void main() {
+  final game = HotAndColdGame();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     GameWidget(
-      game: HotAndColdGame(),
+      game: game,
       overlayBuilderMap: {
-        'Menu': (context, game) {
-          return const MenuOverlay();
+        'Menu': (context, HotAndColdGame game) {
+          return MenuOverlay(game);
         },
       },
     ),

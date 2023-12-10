@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'game.dart';
@@ -59,6 +60,10 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
     y = ((size.y + tileSize.y) / 2);
     addAll(floor);
     floorTiles.addAll(floor);
+  }
+
+  void reset() {
+    floorTiles.forEachIndexed((i, tile) => tile.x = i * tileSize.x);
   }
 
   @override
