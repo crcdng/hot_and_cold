@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:universal_html/html.dart' as html;
 
+import 'package:flutter/material.dart';
 import 'game.dart';
 
 class MenuOverlay extends StatelessWidget {
@@ -12,7 +13,12 @@ class MenuOverlay extends StatelessWidget {
     return Center(
       // ignore: sized_box_for_whitespace
       child: GestureDetector(
-        onTap: () => game.start(),
+        onTap: () => {
+          if (game.state == GameState.gameOver)
+            {html.window.location.reload()}
+          else
+            {game.start()}
+        },
         child: Container(
           color: Colors.black45.withOpacity(0.5),
           width: MediaQuery.of(context).size.width * 0.45,

@@ -69,3 +69,7 @@ audio https://kenney.nl/assets/digital-audio, Creative Commons CC0
 ### Sunday 10.00pm 
 
 - deadline
+
+### Sunday 10.20pm 
+
+- half hour extension, hotfix restart

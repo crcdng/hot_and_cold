@@ -96,7 +96,7 @@ class HotAndColdGame extends FlameGame
     score = 0;
     scoreDisplay.score = score;
     player.start();
-    floor.reset();
+    // floor.onGameResize(size);
     state = GameState.playing;
   }
 

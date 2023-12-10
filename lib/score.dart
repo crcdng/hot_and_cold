@@ -12,13 +12,12 @@ class ScoreDisplay extends TextComponent with HasGameReference<HotAndColdGame> {
   int get score => _score;
   set score(int newScore) {
     _score = newScore;
-    text = '${scoreString(_score)} \nHI ${scoreString(_highScore)}';
+    text = '${scoreString(_score)}';
   }
 
   set highScore(int newScore) {
     _highScore = newScore;
-    text =
-        'SCORE ${scoreString(_score)} \nHIGHSCORE ${scoreString(_highScore)}';
+    text = '${scoreString(_score)}';
   }
 
   String scoreString(int score) => score.toString().padLeft(8, '0');
