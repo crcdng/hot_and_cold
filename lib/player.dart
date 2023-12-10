@@ -16,11 +16,11 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   late PlayerTemperature playerTemperature;
 
   final double gravity = 1;
-  final double initialJumpVelocity = -15.0;
+  final double initialJumpVelocity = -20.0;
   double _jumpVelocity = 0.0;
 
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   Player() : super(size: Vector2(39, 48)) {
     playerTemperature =
@@ -38,7 +38,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   @override
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
-    x = size.x / 2;
+    x = size.x / 3;
   }
 
   @override
@@ -61,14 +61,13 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     if (other is ScreenHitbox) {
       //...
     } else if (other is SpriteComponent) {
-      var otherTemperature = other.sprite.runtimeType;
+      final otherTemperature = other.sprite.runtimeType;
       if ((playerTemperature == PlayerTemperature.hot &&
-              otherTemperature == HotSprite) ||
+              otherTemperature == ColdSprite) ||
           (playerTemperature == PlayerTemperature.cold &&
-              otherTemperature == ColdSprite)) {
-        return;
+              otherTemperature == HotSprite)) {
+        die();
       }
-      die();
     }
   }
 
@@ -160,7 +159,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
       (playerTemperature == PlayerTemperature.hot ? framesHot : framesCold)
           .map(
             (frame) => Sprite(
-              game.spriteImage,
+              game.spriteSheet,
               srcSize: frame.$1, // size
               srcPosition: frame.$2, // position in the spritesheet
             ),

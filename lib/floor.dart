@@ -16,25 +16,36 @@ class ColdSprite extends Sprite {
       {required Vector2 super.srcPosition, required Vector2 super.srcSize});
 }
 
+class NeutralSprite extends Sprite {
+  NeutralSprite(super.image,
+      {required Vector2 super.srcPosition, required Vector2 super.srcSize});
+}
+
 class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
   Floor() : super();
 
   @override
-  bool get debugMode => true;
+  bool get debugMode => false;
 
   static final Vector2 tileSize = Vector2(64, 64);
   final Queue<SpriteComponent> floorTiles = Queue();
   List<SpriteComponent> floor = [];
 
   late final _coldSprite = ColdSprite(
-    game.spriteImage,
+    game.spriteSheet,
     srcPosition: Vector2(390, 390),
     srcSize: tileSize,
   );
 
   late final _hotSprite = HotSprite(
-    game.spriteImage,
+    game.spriteSheet,
     srcPosition: Vector2(195, 492),
+    srcSize: tileSize,
+  );
+
+  late final _neutralSprite = NeutralSprite(
+    game.spriteSheet,
+    srcPosition: Vector2(520, 309),
     srcSize: tileSize,
   );
 
@@ -64,7 +75,12 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
       //   size: tileSize,
       // );
       firstTile.x = floorTiles.last.x + floorTiles.last.width;
-      floorTiles.remove(firstTile);
+      floorTiles.removeFirst();
+      //  floorTiles.remove(firstTile);
+      // if (firstTile.sprite.runtimeType != NeutralSprite) {
+      //   floorTiles.add(firstTile);
+      // }
+
       floorTiles.add(firstTile);
     }
   }
@@ -73,10 +89,26 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
     return List.generate(
         tilesX,
         (index) => SpriteComponent(
-              sprite: Random().nextBool() ? _hotSprite : _coldSprite,
+              sprite: generateSprite(index),
               size: tileSize,
             )
               ..add(RectangleHitbox()..renderShape = false)
               ..x = tileSize.x * index);
+  }
+
+  Sprite generateSprite(i) {
+    if (i < 10) {
+      return _neutralSprite;
+    }
+    switch (Random().nextInt(10)) {
+      case >= 0 && < 2:
+        return _neutralSprite;
+      case >= 2 && < 6:
+        return _coldSprite;
+      case >= 6 && < 10:
+        return _hotSprite;
+      default:
+        return _neutralSprite;
+    }
   }
 }
