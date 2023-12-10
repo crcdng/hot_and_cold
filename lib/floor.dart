@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
@@ -53,6 +52,9 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
   void onGameResize(Vector2 size) {
     super.onGameResize(size);
     final tilesX = size.x ~/ tileSize.x + 1;
+    floor.removeWhere((element) => true);
+    print("start called");
+    floorTiles.clear();
     floor = _generateFloor(tilesX);
     y = ((size.y + tileSize.y) / 2);
     addAll(floor);

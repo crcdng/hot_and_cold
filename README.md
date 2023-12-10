@@ -13,6 +13,7 @@ Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
 ## 3rd party assets 
 
 art https://kenney.nl/assets/abstract-platformer, Creative Commons CC0    
+button https://kenney.nl/assets/onscreen-controls, Creative Commons CC0
 fonts https://kenney.nl/assets/kenney-fonts, Creative Commons CC0    
 audio https://kenney.nl/assets/digital-audio, Creative Commons CC0    
 
@@ -44,8 +45,12 @@ audio https://kenney.nl/assets/digital-audio, Creative Commons CC0
 
 ### Sunday 3pm 
 
-- score
+- score / hiscore (not persistent)
 
 ### Sunday 5pm 
 
 - menu and fonts
+
+### Sunday 6.30pm 
+
+- audio

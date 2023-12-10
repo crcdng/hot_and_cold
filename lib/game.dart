@@ -14,7 +14,11 @@ import 'score.dart';
 enum GameState { intro, playing, gameOver }
 
 class HotAndColdGame extends FlameGame
-    with TapCallbacks, DoubleTapCallbacks, HasCollisionDetection {
+    with
+        TapCallbacks,
+        DoubleTapCallbacks,
+        HasCollisionDetection,
+        SingleGameInstance {
   final double startSpeed = 130;
   final double maxSpeed = 390;
   double speed = 0.0;
@@ -22,7 +26,7 @@ class HotAndColdGame extends FlameGame
   int score = 0;
   int highScore = 0;
 
-  final floor = Floor();
+  var floor = Floor();
   final player = Player();
   final scoreDisplay = ScoreDisplay();
   final button = Button();
@@ -51,7 +55,7 @@ class HotAndColdGame extends FlameGame
   @override
   void onTapDown(TapDownEvent event) {
     super.onTapDown(event);
-    if (state != GameState.playing) {
+    if (state == GameState.intro || state == GameState.gameOver) {
       start();
       return;
     }
@@ -84,22 +88,27 @@ class HotAndColdGame extends FlameGame
   }
 
   void start() {
-    state = GameState.playing;
+    print("start");
+    overlays.remove(menuOverlayIdentifier);
+    _distance = 0.0;
     speed = startSpeed;
     score = 0;
     scoreDisplay.score = score;
-    overlays.remove(menuOverlayIdentifier);
+    player.start();
+    floor = Floor();
+    state = GameState.playing;
   }
 
   void gameOver() {
+    print("gameover");
     state = GameState.gameOver;
+    player.current = PlayerState.dead;
+    speed = 0.0;
+    FlameAudio.play('lowDown.mp3');
     if (score > highScore) {
       highScore = score;
       scoreDisplay.highScore = highScore;
     }
     overlays.add(menuOverlayIdentifier);
-    player.current = PlayerState.dead;
-    speed = 0.0;
-    FlameAudio.play('lowDown.mp3');
   }
 }

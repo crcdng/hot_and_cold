@@ -57,7 +57,9 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollision(intersectionPoints, other);
+    if (game.state != GameState.playing) {
+      return;
+    }
     if (other is ScreenHitbox) {
       //...
     } else if (other is SpriteComponent) {
@@ -69,10 +71,12 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
         die();
       }
     }
+    super.onCollision(intersectionPoints, other);
   }
 
   void start() {
     current = PlayerState.running;
+    y = groundY;
   }
 
   double get groundY {
@@ -105,6 +109,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
 
   void die() {
     print("dead");
+    game.gameOver();
   }
 
   Map<PlayerState, SpriteAnimation> get _getAnimations {
