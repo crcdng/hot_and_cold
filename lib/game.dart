@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart' hide PlayerState;
 
 import 'button.dart';
 import 'floor.dart';
@@ -35,6 +36,8 @@ class HotAndColdGame extends FlameGame
   @override
   Future<void> onLoad() async {
     spriteSheet = await Flame.images.load('spritesheet_complete.png');
+    await FlameAudio.audioCache
+        .loadAll(['highUp.mp3', 'phaseJump1.mp3', 'lowDown.mp3']);
 
     add(floor);
     add(player);
@@ -53,6 +56,7 @@ class HotAndColdGame extends FlameGame
       return;
     }
     player.jump(speed);
+    FlameAudio.play('phaseJump1.mp3');
   }
 
   @override
@@ -62,6 +66,7 @@ class HotAndColdGame extends FlameGame
       return;
     }
     player.switchTemperature(speed);
+    FlameAudio.play('highUp.mp3');
   }
 
   @override
@@ -95,5 +100,6 @@ class HotAndColdGame extends FlameGame
     overlays.add(menuOverlayIdentifier);
     player.current = PlayerState.dead;
     speed = 0.0;
+    FlameAudio.play('lowDown.mp3');
   }
 }
