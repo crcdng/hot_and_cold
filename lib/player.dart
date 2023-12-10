@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
+import 'floor.dart';
 import 'game.dart';
 
 enum PlayerState { idle, running, jumping, dead }
@@ -29,6 +30,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   @override
   FutureOr<void> onLoad() {
     super.onLoad();
+    add(RectangleHitbox()..renderShape = false);
     animations = _getAnimations;
     current = PlayerState.idle;
   }
@@ -53,12 +55,29 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     }
   }
 
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+    if (other is ScreenHitbox) {
+      //...
+    } else if (other is SpriteComponent) {
+      var otherTemperature = other.sprite.runtimeType;
+      if ((playerTemperature == PlayerTemperature.hot &&
+              otherTemperature == HotSprite) ||
+          (playerTemperature == PlayerTemperature.cold &&
+              otherTemperature == ColdSprite)) {
+        return;
+      }
+      die();
+    }
+  }
+
   void start() {
     current = PlayerState.running;
   }
 
   double get groundY {
-    return (game.size.y / 2) - height / 2;
+    return (game.size.y / 2) - height / 2 + 10;
   }
 
   void jump(double speed) {
@@ -83,6 +102,10 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     };
     animations = _getAnimations;
     print("switch to $playerTemperature");
+  }
+
+  void die() {
+    print("dead");
   }
 
   Map<PlayerState, SpriteAnimation> get _getAnimations {

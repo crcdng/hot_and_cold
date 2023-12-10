@@ -1,8 +1,20 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'game.dart';
+
+class HotSprite extends Sprite {
+  HotSprite(super.image,
+      {required Vector2 super.srcPosition, required Vector2 super.srcSize});
+}
+
+class ColdSprite extends Sprite {
+  ColdSprite(super.image,
+      {required Vector2 super.srcPosition, required Vector2 super.srcSize});
+}
 
 class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
   Floor() : super();
@@ -14,13 +26,13 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
   final Queue<SpriteComponent> floorTiles = Queue();
   List<SpriteComponent> floor = [];
 
-  late final _coldSprite = Sprite(
+  late final _coldSprite = ColdSprite(
     game.spriteImage,
     srcPosition: Vector2(390, 390),
     srcSize: tileSize,
   );
 
-  late final _hotSprite = Sprite(
+  late final _hotSprite = HotSprite(
     game.spriteImage,
     srcPosition: Vector2(195, 492),
     srcSize: tileSize,
@@ -31,7 +43,6 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
     super.onGameResize(size);
     final tilesX = size.x ~/ tileSize.x + 1;
     floor = _generateFloor(tilesX);
-    print((size.y) / 2);
     y = ((size.y + tileSize.y) / 2);
     addAll(floor);
     floorTiles.addAll(floor);
@@ -64,6 +75,8 @@ class Floor extends PositionComponent with HasGameReference<HotAndColdGame> {
         (index) => SpriteComponent(
               sprite: Random().nextBool() ? _hotSprite : _coldSprite,
               size: tileSize,
-            )..x = tileSize.x * index);
+            )
+              ..add(RectangleHitbox()..renderShape = false)
+              ..x = tileSize.x * index);
   }
 }

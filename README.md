@@ -32,3 +32,10 @@ https://kenney.nl/assets/abstract-platformer, Creative Commons CC0
 - first sprites on the screen
 
 ### Saturday 4pm
+
+-  bugs, bugs, bugs
+
+### Sunday 2am
+
+- collision detection logic
+- core game loop
