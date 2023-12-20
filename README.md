@@ -1,7 +1,6 @@
 # hot_and_cold
 
-Archived game jam code, new versions available at:
-https://crcdng.itch.io/hot-and-cold 
+Archived game jam code, new versions available at: https://crcdng.itch.io/hot-and-cold 
 
 
 Contribution to the [Flame Game Jam 3.0](https://itch.io/jam/flame-jam-3)
